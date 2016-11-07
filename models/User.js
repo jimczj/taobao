@@ -23,7 +23,7 @@ UserSchema.statics = {
   createFromReq:function(req,cb){
     let jsonObj = getJsonFromReq(UserSchema,req);
     user = User(jsonObj);
-    return user.save(jsonObj,cb);
+    return user.save(cb);
   },
   // 根据req传来到内容，进行更新
   updateByIdFromReq:function(req,cb){

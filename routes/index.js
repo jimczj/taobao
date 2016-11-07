@@ -1,5 +1,5 @@
 var express = require('express');
-var User = require('../models/user');
+var User = require('../models/User');
 var sha1 = require('sha1');
 var checkLogin = require('../middlewares/check').checkLogin;
 var router = express.Router();

@@ -5,27 +5,23 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var config = require('./config');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var roles = require('./routes/roles');
 var user_role = require('./routes/user_role');
+var meeting = require('./routes/meetings');
+var class_money = require('./routes/class_money');
+var good_student = require('./routes/good_student');
+var check_in = require('./routes/check_in');
 
 var app = express();
 
 
 // mongoose config
-var mongoose = require('mongoose')  
-  , connectionString = 'mongodb://localhost:27017/message_board'
-  , options = {};
-mongoose.Promise = global.Promise;
-options = {  
-  server: {
-    auto_reconnect: true,
-    poolSize: 10
-  }
-};
-mongoose.connect(connectionString);  
+var mongoose = require('mongoose');
+mongoose.connect(config.mongodb);  
 mongoose.connection.on ('error', () => {
     console.log('连接数据库失败')
 });
@@ -47,9 +43,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //配置session
 app.use(session({
-  secret: 'jsfioj12314sjfi',
-  name: 'useradmin',   //这里的name值得是cookie的name，默认cookie的name是：connect.sid
-  cookie: {maxAge: 80000 },  //设置maxAge是80000ms，即80s后session和相应的cookie失效过期
+  secret: config.session.secret,
+  name: config.session.key,   //这里的name值得是cookie的name，默认cookie的name是：connect.sid
+  cookie: {maxAge: config.session.maxAge },  //设置maxAge是180 day
   resave: false,
   saveUninitialized: true,
 }));
@@ -60,6 +56,10 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/roles',roles);
 app.use('/user_role',user_role);
+app.use('/meeting',meeting);
+app.use('/class_money',class_money);
+app.use('/good_student',good_student);
+app.use('/check_in',check_in);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

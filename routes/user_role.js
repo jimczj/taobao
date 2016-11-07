@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/user');
-var Role = require('../models/role');
+var User = require('../models/User');
+var Role = require('../models/Role');
 
 
 

@@ -1,11 +1,13 @@
 var express = require('express');
 var router = express.Router();
+var checkLogin = require('../middlewares/check').checkLogin;
+var has_perm = require('../middlewares/permission').has_perm;
 var GoodStudent = require('../models/GoodStudent');
 
 /* GET GoodStudent listing. */
-router.get('/', function(req, res) {
+router.get('/', checkLogin,function(req, res) {
 
-  GoodStudent.find({}, function(err, goodStudents) {
+  GoodStudent.find({},function(err, goodStudents) {
     if(err){
       res.json({status:1,message:err})
     }
@@ -15,8 +17,8 @@ router.get('/', function(req, res) {
   })
 });
 
-//create a ClassMoney
-router.post('/',function(req,res) {
+//create a GoodStudent
+router.post('/',has_perm('评优等生帖'),function(req,res) {
   GoodStudent.createFromReq(req,function(err) {
     if(err){
       res.json({status:0,message:err})
@@ -27,8 +29,8 @@ router.post('/',function(req,res) {
   });
 });
 
-/* GET a Meeting . */
-router.get('/:id', function(req, res) {
+/* GET a GoodStudent . */
+router.get('/:id',checkLogin,function(req, res) {
 
   GoodStudent.findById(req.params.id, function(err, goodStudent) {
     if(err){

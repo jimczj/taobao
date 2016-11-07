@@ -15,12 +15,14 @@ var meeting = require('./routes/meetings');
 var class_money = require('./routes/class_money');
 var good_student = require('./routes/good_student');
 var check_in = require('./routes/check_in');
+var comment =  require('./routes/comment');
 
 var app = express();
 
 
 // mongoose config
 var mongoose = require('mongoose');
+mongoose.promise = global.promise;
 mongoose.connect(config.mongodb);  
 mongoose.connection.on ('error', () => {
     console.log('连接数据库失败')
@@ -60,6 +62,7 @@ app.use('/meeting',meeting);
 app.use('/class_money',class_money);
 app.use('/good_student',good_student);
 app.use('/check_in',check_in);
+app.use('/comment',comment);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

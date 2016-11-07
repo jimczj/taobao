@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var Meeting = require('../models/Meeting');
+var checkLogin = require('../middlewares/check').checkLogin;
+var has_perm = require('../middlewares/permission').has_perm;
+
 
 /* GET Meeting listing. */
-router.get('/', function(req, res) {
+router.get('/', checkLogin,function(req, res) {
 
   Meeting.find({}, function(err, meetings) {
     if(err){
@@ -16,7 +19,7 @@ router.get('/', function(req, res) {
 });
 
 //create a meeting
-router.post('/',function(req,res) {
+router.post('/',has_perm('发布开班会帖'),function(req,res) {
   Meeting.createFromReq(req,function(err) {
     if(err){
       res.json({status:0,message:err})
@@ -28,7 +31,7 @@ router.post('/',function(req,res) {
 });
 
 /* GET a Meeting . */
-router.get('/:id', function(req, res) {
+router.get('/:id',checkLogin, function(req, res) {
 
   Meeting.findById(req.params.id, function(err, meeting) {
     if(err){

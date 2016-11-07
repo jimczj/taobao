@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
+var Role = require('./Role');
 var sha1 = require('sha1');
 var getJsonFromReq = require('./utils/getJsonFromReq');
 var Schema = mongoose.Schema;
 
-
-var SexEnum =['F','M'];
+var SexEnum =['F','M'];//F = Female,M = male
 
 var UserSchema = new Schema({
   username:  {type:String,required:true,unique: true},
@@ -13,18 +13,24 @@ var UserSchema = new Schema({
   age: {type:Number,min:0},
   class: String,
   password: {type:String,required: true},
-  role_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Role'}
+  role_id: {type: Schema.Types.ObjectId, ref: 'Role'}
 });
 
-
-
 UserSchema.statics = {
-  // 根据req传来到内容，进行 add user
+  // 根据req传来到内容，进行 add user,并设置初始角色
   createFromReq:function(req,cb){
     let jsonObj = getJsonFromReq(UserSchema,req);
-    user = User(jsonObj);
-    return user.save(cb);
-  },
+    Role.findOne({role_name:'班级成员'},function(err,role){
+      if(err){
+        cb(err);
+      }
+      else{
+        jsonObj.role_id = role._id;
+        user = User(jsonObj);
+        return user.save(cb);
+      }
+    });
+},
   // 根据req传来到内容，进行更新
   updateByIdFromReq:function(req,cb){
     let jsonObj = getJsonFromReq(UserSchema,req);
@@ -40,7 +46,7 @@ UserSchema.statics = {
   },
 
 };
-// 保存前對密碼進行加密
+// 保存前對密碼進行加密,如果是刚创建的用户，权限初始化为班级成员
 UserSchema.pre('save', function(next){
   this.password = sha1(this.password);
   next();

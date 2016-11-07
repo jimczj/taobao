@@ -3,8 +3,8 @@ var getJsonFromReq = require('./utils/getJsonFromReq');
 var Schema = mongoose.Schema;
 
 var RoleSchema = new Schema({
-  role_name:  String,
-  role_rights: [String],
+  role_name:  {type:String,unique:true,require:true},
+  role_rights: [{type:String,unique:true}],
   parent_role_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Role'},
   
 });

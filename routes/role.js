@@ -8,10 +8,10 @@ router.get('/', function(req, res) {
 
   Role.find({}, function(err, roles) {
     if(err) {
-      res.json({status:0,message:err});
+      res.json({status:0,message:err.message});
     }
     else{
-      res.json(roles)
+      res.json({status:1,json:roles})
     }
   })
 });
@@ -19,7 +19,7 @@ router.get('/', function(req, res) {
 // router.get('/:id', function(req, res) {
 //   Role.findById(req.params.id,function(err,role){
 //     if(err) {
-//       res.json({status:0,message:err});
+//       res.json({status:0,message:err.message});
 //     }
 //     else{
 //       res.json(role)
@@ -31,7 +31,7 @@ router.get('/', function(req, res) {
 // router.post('/',function(req,res) {
 //   Role.createFromReq(req,function(err){
 //     if(err) {
-//       res.json({status:0,message:err});
+//       res.json({status:0,message:err.message});
 //     }
 //     else{
 //       res.json({status:1,message:'success'});
@@ -44,7 +44,7 @@ router.get('/', function(req, res) {
 // router.delete('/:id',function(req,res) {
 //   Role.findByIdAndRemove(req.params.id, function(err) {
 //     if(err) {
-//       res.json({status:0,message:err});
+//       res.json({status:0,message:err.message});
 //     }
 //     else {
 //       res.json({status:1,message:'success'});

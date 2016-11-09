@@ -9,10 +9,10 @@ router.get('/', checkLogin,function(req, res) {
 
   GoodStudent.find({},function(err, goodStudents) {
     if(err){
-      res.json({status:1,message:err})
+      res.json({status:0,message:err.message})
     }
     else{
-      res.json(goodStudents);
+      res.json({status:1,json:goodStudents});
     }
   })
 });
@@ -21,7 +21,7 @@ router.get('/', checkLogin,function(req, res) {
 router.post('/',has_perm('评优等生帖'),function(req,res) {
   GoodStudent.createFromReq(req,function(err) {
     if(err){
-      res.json({status:0,message:err})
+      res.json({status:0,message:err.message})
     }
     else {
       res.json({status:1,message:"success create a good student"})
@@ -34,10 +34,10 @@ router.get('/:id',checkLogin,function(req, res) {
 
   GoodStudent.findById(req.params.id, function(err, goodStudent) {
     if(err){
-      res.json({status:0,message:err})
+      res.json({status:0,message:err.message})
     }
     else{
-      res.json(goodStudent);
+      res.json({status:1,json:goodStudent});
     }
   })
 });

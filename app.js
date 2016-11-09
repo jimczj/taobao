@@ -8,10 +8,10 @@ var session = require('express-session');
 var config = require('./config');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
-var roles = require('./routes/roles');
+var user = require('./routes/user');
+var role = require('./routes/role');
 var user_role = require('./routes/user_role');
-var meeting = require('./routes/meetings');
+var meeting = require('./routes/meeting');
 var class_money = require('./routes/class_money');
 var good_student = require('./routes/good_student');
 var check_in = require('./routes/check_in');
@@ -54,15 +54,15 @@ app.use(session({
 
 
 
-app.use('/', routes);
-app.use('/users', users);
-app.use('/roles',roles);
-app.use('/user_role',user_role);
-app.use('/meeting',meeting);
-app.use('/class_money',class_money);
-app.use('/good_student',good_student);
-app.use('/check_in',check_in);
-app.use('/comment',comment);
+app.use('/api', routes);
+app.use('/api/user', user);
+app.use('/api/role',role);
+app.use('/api/user_role',user_role);
+app.use('/api/meeting',meeting);
+app.use('/api/class_money',class_money);
+app.use('/api/good_student',good_student);
+app.use('/api/check_in',check_in);
+app.use('/api/comment',comment);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -71,16 +71,24 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// error handlers
+//设置跨域访问
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By",' 3.2.1')
+    res.header("Content-Type", "application/json;charset=utf-8");
+    next();
+});
 
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.json({
       message: err.message,
-      error: err
+      status:0
     });
   });
 }
@@ -89,10 +97,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+  res.json({status:0,message:err.message});
 });
 
 

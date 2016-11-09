@@ -9,10 +9,10 @@ router.get('/', checkLogin,function(req, res) {
 
   ClassMoney.find({}, function(err, classMoneys) {
     if(err){
-      res.json({status:0,message:err})
+      res.json({status:0,message:err.message})
     }
     else{
-      res.json(classMoneys);
+      res.json({status:1,json:classMoneys});
     }
   })
 });
@@ -21,7 +21,7 @@ router.get('/', checkLogin,function(req, res) {
 router.post('/',has_perm('收班费帖'),function(req,res) {
   ClassMoney.createFromReq(req,function(err) {
     if(err){
-      res.json({status:0,message:err})
+      res.json({status:0,message:err.message})
     }
     else {
       res.json({status:1,message:"success create a meeting"})
@@ -34,10 +34,10 @@ router.get('/:id', checkLogin, function(req, res) {
 
   ClassMoney.findById(req.params.id, function(err, classMoney) {
     if(err){
-      res.json({status:0,message:err})
+      res.json({status:0,message:err.message})
     }
     else{
-      res.json(classMoney);
+      res.json({status:1,json:classMoney});
     }
   })
 });

@@ -9,10 +9,10 @@ router.get('/', checkLogin,function(req, res) {
 
   CheckIn.find({}, function(err, checkIns) {
     if(err){
-      res.json({status:1,message:err})
+      res.json({status:0,message:err.message})
     }
     else{
-      res.json(checkIns);
+      res.json({status:1,json:checkIns});
     }
   })
 });
@@ -21,7 +21,7 @@ router.get('/', checkLogin,function(req, res) {
 router.post('/',has_perm('发布考勤结果帖'),function(req,res) {
   CheckIn.createFromReq(req,function(err) {
     if(err){
-      res.json({status:0,message:err})
+      res.json({status:0,message:err.message})
     }
     else {
       res.json({status:1,message:"success create a meeting"})
@@ -34,10 +34,10 @@ router.get('/:id',checkLogin,function(req, res) {
 
   CheckIn.findById(req.params.id, function(err, checkIn) {
     if(err){
-      res.json({status:0,message:err})
+      res.json({status:0,message:err.message})
     }
     else{
-      res.json(checkIn);
+      res.json({status:1,json:checkIn});
     }
   })
 });

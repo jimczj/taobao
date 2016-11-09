@@ -10,10 +10,10 @@ router.get('/', checkLogin,function(req, res) {
 
   Meeting.find({}, function(err, meetings) {
     if(err){
-      res.json({status:1,message:err})
+      res.json({status:0,message:err.message})
     }
     else{
-      res.json(meetings);
+      res.json({status:0,json:meetings});
     }
   })
 });
@@ -22,7 +22,7 @@ router.get('/', checkLogin,function(req, res) {
 router.post('/',has_perm('发布开班会帖'),function(req,res) {
   Meeting.createFromReq(req,function(err) {
     if(err){
-      res.json({status:0,message:err})
+      res.json({status:0,message:err.message})
     }
     else {
       res.json({status:1,message:"success create a meeting"})
@@ -35,10 +35,10 @@ router.get('/:id',checkLogin, function(req, res) {
 
   Meeting.findById(req.params.id, function(err, meeting) {
     if(err){
-      res.json({status:0,message:err})
+      res.json({status:0,message:err.message})
     }
     else{
-      res.json(meeting);
+      res.json({status:1,json:meeting});
     }
   })
 });

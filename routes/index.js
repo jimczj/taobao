@@ -17,7 +17,7 @@ router.post('/login', function(req, res) {
     res.json({status:0,message:'password is required'});  
   }
   User.findOne({username:req.body.username},function(err,user){
-    if(err){
+    if(err||!user){
       res.json({status:0,message:'该用户不存在'});
     }
     else{
@@ -31,6 +31,20 @@ router.post('/login', function(req, res) {
     }
   });
 });
+
+// register a user
+router.post('/register',function(req,res) {
+
+  User.createFromReq(req,function(err){
+    if (err){
+      res.json({status:0,message:err.message});
+    }
+    else{
+      res.json({status:1,message:'success'});
+    }
+  });
+})
+
 // 退出
 router.get('/signout', checkLogin, function(req, res) {
   // 清空 session 中用户信息

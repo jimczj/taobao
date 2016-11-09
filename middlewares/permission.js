@@ -5,22 +5,25 @@ module.exports = {
   has_perm: function (permission) {
     return function (req,res,next) {
       if(!req.session.user){
-        next();
+        res.json({status:0,message:"请登录后再访问"});
       }
-      let user = req.session.user;
-      Role.findById(user.role_id,function(err,role){
-        if(err){
-          res.json({status:0,message:err});
-        }
-        else {
-          if(role && role.role_rights.includes(permission)){
-            next();
+      else{
+        let user = req.session.user;
+        Role.findById(user.role_id,function(err,role){
+          if(err){
+            res.json({status:0,message:err});
           }
-          else{
-            res.json({status:0,message:"没有权限访问"});
+          else {
+            if(role && role.role_rights.includes(permission)){
+              next();
+            }
+            else{
+              res.json({status:0,message:"没有权限访问"});
+            }
           }
-        }
-      })
+        })
+      }
+      
     }
   }
 };

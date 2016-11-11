@@ -1,4 +1,5 @@
 var Role = require('../Role');
+var User = require('../User');
 var mongoose = require('mongoose');
 var config = require('../../config');
 
@@ -69,3 +70,22 @@ class_member.save(function(err){
   }
 });
 
+
+Role.findOne({role_name:'班长'},function(err,role){
+  if (err) {console.log(err)}
+  else{
+    let user = User({
+      username:'root',
+      password:'root',
+      role_id:role._id,
+    });
+    user.save(function(err){
+      if(err){
+        console.log("create root user fail")
+      }
+      else{
+        console.log("create root user success")
+      }
+    });
+  }
+})

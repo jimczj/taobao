@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 var CommentSchema = new Schema({
   creator:  {type:Schema.Types.ObjectId,required:true,ref: 'User'},
   topic_id: {type:String},
-  create_time: {type:Date, default: Date.now},
+  create_time: {type:Date},
   content: {type:String,required:true}
 });
 
@@ -15,8 +15,15 @@ CommentSchema.statics = {
   createFromReq:function(req,cb){
     let jsonObj = getJsonFromReq(CommentSchema,req);
     jsonObj.creator = req.session.user._id;
+    jsonObj.create_time = Date.now();
     comment = Comment(jsonObj);
     return comment.save(cb);
+  },
+  fetchOne:function(id,cb){
+    return Comment.findById(id).populate('creator').exec(cb);
+  },
+  fetch:function(json,cb){
+    return Comment.find(json).populate('creator').exec(cb);
   }
 };
 // 保存前對密碼進行加密,如果是刚创建的用户，权限初始化为班级成员

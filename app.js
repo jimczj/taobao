@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var config = require('./config');
 
 var routes = require('./routes/index');
@@ -50,6 +51,7 @@ app.use(session({
   cookie: {maxAge: config.session.maxAge },  //设置maxAge是180 day
   resave: false,
   saveUninitialized: true,
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
 

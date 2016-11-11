@@ -8,8 +8,8 @@ var Role = require('../models/Role');
 /* update user role. */
 router.put('/:user_id/:role_id', function(req, res) {
   Role.findById(req.params.role_id,function(err, role) {
-    if (err) {
-      res.json({status:0,message:err.message});
+    if (err||!role) {
+      res.json({status:0,message:'role doesn\'t exit! ' });
     }
     else{
       User.findByIdAndUpdate(req.params.user_id,{role_id:role._id},function(err, user) {

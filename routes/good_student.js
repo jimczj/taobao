@@ -7,7 +7,7 @@ var GoodStudent = require('../models/GoodStudent');
 /* GET GoodStudent listing. */
 router.get('/', checkLogin,function(req, res) {
 
-  GoodStudent.find({},function(err, goodStudents) {
+  GoodStudent.fetch({},function(err, goodStudents) {
     if(err){
       res.json({status:0,message:err.message})
     }
@@ -32,7 +32,7 @@ router.post('/',has_perm('评优等生帖'),function(req,res) {
 /* GET a GoodStudent . */
 router.get('/:id',checkLogin,function(req, res) {
 
-  GoodStudent.findById(req.params.id, function(err, goodStudent) {
+  GoodStudent.fetchOne(req.params.id, function(err, goodStudent) {
     if(err){
       res.json({status:0,message:err.message})
     }

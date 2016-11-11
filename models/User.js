@@ -4,12 +4,11 @@ var sha1 = require('sha1');
 var getJsonFromReq = require('./utils/getJsonFromReq');
 var Schema = mongoose.Schema;
 
-var SexEnum =['F','M'];//F = Female,M = male
 
 var UserSchema = new Schema({
   username:  {type:String,required:true,unique: true},
   email: {type :String,match:/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/},
-  sex:   {type:String,enum: SexEnum},
+  sex:   {type:String,enum: ['F','M']},//F = Female,M = male
   age: {type:Number,min:0},
   class: String,
   password: {type:String,required: true},
@@ -37,12 +36,12 @@ UserSchema.statics = {
     return User.findByIdAndUpdate(req.params.id,jsonObj, cb);
   },
   //获取除了密码之外的所有字段
-  fetchUsers:function(cb){
-   return this.find ({},'username email sex age class role_id',cb);
+  fetch:function(json,cb){
+   return this.find (json,'username email sex age class role_id').populate('role_id').exec(cb);
   },
   //获取除了密码之外的所有字段
   fetchById:function(id,cb){
-    return this.findById(id,'username email sex age class role_id',cb);
+    return this.findById(id,'username email sex age class role_id').populate('role_id').exec(cb);
   },
 
 };

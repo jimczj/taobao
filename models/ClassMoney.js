@@ -16,6 +16,7 @@ ClassMoneySchema.statics = {
   // 根据req传来到内容，进行 add meeting
   createFromReq:function(req,cb){
     let jsonObj = getJsonFromReq(ClassMoneySchema,req);
+    jsonObj.creator = req.session.user._id;
     class_money = ClassMoney(jsonObj);
     return class_money.save(cb);
   }

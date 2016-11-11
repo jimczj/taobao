@@ -4,6 +4,6 @@ module.exports = {
     secret:'dontgetmysecret',
     maxAge:60000*60*24*180,//设置maxAge是180 day
   },
-  mongodb:'mongodb://localhost:27017/message_board'// db url
+  mongodb:'mongodb://localhost:27017/userAdmin'// db url
 
 };

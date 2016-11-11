@@ -7,7 +7,7 @@ var User = require('../models/User')
 /* GET user list. checkLogin*/
 router.get('/',function(req, res) {
 
-  User.find({},function(err, users) {
+  User.fetch({},function(err, users) {
     if (err){
       res.json({status:0,message:err.message});
     }
@@ -18,18 +18,18 @@ router.get('/',function(req, res) {
 });
 
 
-// /* GET a user by id. */
-// router.get('/:id', function(req, res) {
-//   User.fetchById(req.params.id,function(err,user){
-//     if (err){
-//       res.json({status:0,message:err.message});
-//     }
-//     else{
-//       res.json(user);
-//     }
-//   });
-// });
-// create a user
+/* GET a user by id. */
+router.get('/:id', function(req, res) {
+  User.fetchById(req.params.id,function(err,user){
+    if (err){
+      res.json({status:0,message:err.message});
+    }
+    else{
+      res.json(user);
+    }
+  });
+});
+
 
 
 //delete a user by id

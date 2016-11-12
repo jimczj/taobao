@@ -1,18 +1,3 @@
-<!--
-  Represents Page not Found page
-  creator : {type: mongoose.Schema.Types.ObjectId, ref: 'User'},//发帖人
-  class_id:  {type:String,required:true},//班级ID
-  title: {type :String},//优等头衔
-  bond: {type:Number,min:0},//奖金
-  owner:
-  
-  comment:
-
-  creator:  {type:Schema.Types.ObjectId,required:true,ref: 'User'},
-  topic_id: {type:String},
-  create_time: {type:Date, default: Date.now},
-  content: {type:String,required:true}
--->
 <template>
   <main>
     <!-- Form -->

@@ -23,7 +23,10 @@ CommentSchema.statics = {
     return Comment.findById(id).populate('creator').exec(cb);
   },
   fetch:function(json,cb){
-    return Comment.find(json).populate('creator').exec(cb);
+    return Comment.find(json)
+      .sort({'_id':-1})
+      .populate('creator')
+      .exec(cb);
   }
 };
 // 保存前對密碼進行加密,如果是刚创建的用户，权限初始化为班级成员

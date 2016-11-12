@@ -1,19 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var Role = require('../models/Role');
+var responseJson = require('./utils/responseJson');
 
 
 // /* GET role listing. */
 router.get('/', function(req, res) {
-
-  Role.find({}, function(err, roles) {
-    if(err) {
-      res.json({status:0,message:err.message});
-    }
-    else{
-      res.json({status:1,json:roles})
-    }
-  })
+  Role.find({}, responseJson(res))
 });
 // /* GET role . */
 // router.get('/:id', function(req, res) {

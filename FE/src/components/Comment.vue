@@ -27,6 +27,13 @@
 import commentService from '../services/commentService'
 export default {
   props:['data','type'],
+  watch:{
+    data:function (val){
+      this.$set(this.data,'isShowComment',false);
+      this.$set(this.data,'commentInput','');
+      this.$set(this.data,'comments',[]);
+    }
+  },
   methods:{
     toggleCommentList(){
       if(this.data.isShowComment){

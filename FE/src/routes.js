@@ -5,6 +5,7 @@ import MainContainer from './pages/MainContainer.vue'
 import GoodStudent from './pages/GoodStudent.vue'
 import ViewContainer from './components/ViewContainer.vue'
 import Users from './pages/Users.vue'
+import Meeting from './pages/Meeting.vue'
 
 export default [
   {
@@ -47,7 +48,14 @@ export default [
             meta:{
               public:false
             }
-          }
+          },
+          {
+            path:'meeting',
+            component:Meeting,
+            meta:{
+              public:false
+            }
+          },
         ]
 
       },

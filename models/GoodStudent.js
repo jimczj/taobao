@@ -21,10 +21,17 @@ GoodStudentSchema.statics = {
     return goodStudent.save(cb);
   },
   fetchOne:function(id,cb){
-    return GoodStudent.findById(id).populate('creator').populate('owner').exec(cb);
+    return GoodStudent.findById(id)
+      .populate('creator')
+      .populate('owner')
+      .exec(cb);
   },
   fetch:function(json,cb){
-    return GoodStudent.find(json).populate('creator').populate('owner').exec(cb);
+    return GoodStudent.find(json)
+      .sort({'_id':-1})
+      .populate('creator')
+      .populate('owner')
+      .exec(cb);
   }
 }
 var GoodStudent = mongoose.model('GoodStudent', GoodStudentSchema);

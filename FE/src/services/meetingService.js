@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import config from '../config'
 
 export default {
   getMeetingList () {
@@ -7,5 +6,11 @@ export default {
   },
   createMeeting (meeting) {
     return Vue.http.post(`/api/meeting`, meeting);
-  }
+  },
+  agree (id) {
+    return Vue.http.put(`/api/meeting/${id}/agree`)
+  },
+  disagree (id) {
+    return Vue.http.put(`/api/meeting/${id}/disagree`)
+  },
 }

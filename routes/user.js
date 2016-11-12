@@ -1,33 +1,20 @@
 var express = require('express');
 var router = express.Router();
 var checkLogin = require('../middlewares/check').checkLogin;
-var User = require('../models/User')
+var User = require('../models/User');
+var responseJson = require('./utils/responseJson');
 
 
 /* GET user list. checkLogin*/
 router.get('/',function(req, res) {
 
-  User.fetch({},function(err, users) {
-    if (err){
-      res.json({status:0,message:err.message});
-    }
-    else{
-      res.json({status:1,json:users});
-    }
-  })
+  User.fetch({},responseJson(res));
 });
 
 
 /* GET a user by id. */
 router.get('/:id', function(req, res) {
-  User.fetchById(req.params.id,function(err,user){
-    if (err){
-      res.json({status:0,message:err.message});
-    }
-    else{
-      res.json(user);
-    }
-  });
+  User.fetchById(req.params.id,responseJson(res));
 });
 
 

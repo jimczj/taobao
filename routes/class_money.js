@@ -3,43 +3,23 @@ var router = express.Router();
 var ClassMoney = require('../models/ClassMoney');
 var checkLogin = require('../middlewares/check').checkLogin;
 var has_perm = require('../middlewares/permission').has_perm;
+var responseJson = require('./utils/responseJson');
 
 /* GET ClassMoney listing. */
 router.get('/', checkLogin,function(req, res) {
 
-  ClassMoney.find({}, function(err, classMoneys) {
-    if(err){
-      res.json({status:0,message:err.message})
-    }
-    else{
-      res.json({status:1,json:classMoneys});
-    }
-  })
+  ClassMoney.find({},responseJson(res));
 });
 
 //create a ClassMoney
 router.post('/',has_perm('收班费帖'),function(req,res) {
-  ClassMoney.createFromReq(req,function(err) {
-    if(err){
-      res.json({status:0,message:err.message})
-    }
-    else {
-      res.json({status:1,message:"success create a meeting"})
-    }
-  });
+  ClassMoney.createFromReq(req,responseJson(res,"success create a meeting"));
 });
 
-/* GET a Meeting . */
+/* GET a ClassMoney . */
 router.get('/:id', checkLogin, function(req, res) {
 
-  ClassMoney.findById(req.params.id, function(err, classMoney) {
-    if(err){
-      res.json({status:0,message:err.message})
-    }
-    else{
-      res.json({status:1,json:classMoney});
-    }
-  })
+  ClassMoney.findById(req.params.id,responseJson(res));
 });
 
 module.exports = router;

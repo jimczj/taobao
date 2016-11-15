@@ -19,5 +19,6 @@
     npm start  // 启动
     // 前端 fe
     cd FE && npm install  // 安装（可能有点慢）
+    
     npm run dev // 启动 
 

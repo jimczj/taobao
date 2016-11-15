@@ -4,9 +4,10 @@
 后端使用Express+Mongodb，前端使用vue+vuex+vue-resource+vue-router+element-ui
 
 # 运行
-`git clone https://github.com/jimczj/studentAdmin.git  // 仓库
+` git clone https://github.com/jimczj/studentAdmin.git  // 仓库
 
 // 后端be
+
 cd studentAdmin && npm install  // 安装
 
 npm start  // 启动
@@ -16,6 +17,5 @@ npm start  // 启动
 
 cd FE && npm install  // 安装（可能有点慢）
 
-npm run dev 
-` 
+npm run dev  ` 
 

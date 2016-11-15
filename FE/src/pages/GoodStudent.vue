@@ -28,7 +28,7 @@
         <el-row>
           <el-col :span="3">
             <p class="text_center"><img src="../assets/avator.jpg" alt="avator"></p>
-            <p class="avator text_center">{{goodStudent.creator.username}}
+            <p class="text_center">{{goodStudent.creator.username}}
             </p>
           </el-col>
           <el-col :span="19" :offset="2">

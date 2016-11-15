@@ -32,7 +32,7 @@
         <el-row>
           <el-col :span="3">
             <p class="text_center"><img src="../assets/avator.jpg" alt="avator"></p>
-            <p class="avator text_center">{{meeting.creator.username}}</p>
+            <p class="text_center">{{meeting.creator.username}}</p>
           </el-col>
           <el-col :span="19" :offset="2">
             <h4>标题: {{meeting.topic}}</h4>

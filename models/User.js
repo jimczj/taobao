@@ -6,47 +6,71 @@ var Schema = mongoose.Schema;
 
 
 var UserSchema = new Schema({
-  username:  {type:String,required:true,unique: true},
-  email: {type :String,match:/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/},
-  sex:   {type:String,enum: ['F','M']},//F = Female,M = male
-  age: {type:Number,min:0},
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  email: {
+    type: String,
+    match: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/
+  },
+  sex: {
+    type: String,
+    enum: ['男', '女']
+  }, 
+  age: {
+    type: Number,
+    min: 0
+  },
   class: String,
-  password: {type:String,required: true},
-  role_id: {type: Schema.Types.ObjectId, ref: 'Role'}
+  password: {
+    type: String,
+    required: true
+  },
+  role_id: {
+    type: Schema.Types.ObjectId,
+    ref: 'Role'
+  }
 });
 
 UserSchema.statics = {
   // 根据req传来到内容，进行 add user,并设置初始角色
-  createFromReq:function(req,cb){
-    let jsonObj = getJsonFromReq(UserSchema,req);
-    Role.findOne({role_name:'班级成员'},function(err,role){
-      if(err){
+  createFromReq: function(req, cb) {
+    let jsonObj = getJsonFromReq(UserSchema, req);
+    Role.findOne({
+      role_name: '班级成员'
+    }, function(err, role) {
+      if (err) {
         cb(err);
-      }
-      else{
+      } else {
         jsonObj.role_id = role._id;
         user = User(jsonObj);
         return user.save(cb);
       }
     });
-},
+  },
   // 根据req传来到内容，进行更新
-  updateByIdFromReq:function(req,cb){
-    let jsonObj = getJsonFromReq(UserSchema,req);
-    return User.findByIdAndUpdate(req.params.id,jsonObj, cb);
+  updateByIdFromReq: function(req, cb) {
+    let jsonObj = getJsonFromReq(UserSchema, req);
+    return User.findByIdAndUpdate(req.params.id, jsonObj, cb);
   },
   //获取除了密码之外的所有字段
-  fetch:function(json,cb){
-   return this.find (json,'username email sex age class role_id').populate('role_id').exec(cb);
+  fetch: function(json, cb) {
+    return this.find(json, 'username email sex age class role_id')
+      .populate('role_id')
+      .exec(cb);
   },
   //获取除了密码之外的所有字段
-  fetchById:function(id,cb){
-    return this.findById(id,'username email sex age class role_id').populate('role_id').exec(cb);
+  fetchById: function(id, cb) {
+    return this.findById(id, 'username email sex age class role_id')
+      .populate('role_id')
+      .exec(cb);
   },
 
 };
 // 保存前對密碼進行加密,如果是刚创建的用户，权限初始化为班级成员
-UserSchema.pre('save', function(next){
+UserSchema.pre('save', function(next) {
   this.password = sha1(this.password);
   next();
 });

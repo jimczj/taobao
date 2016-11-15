@@ -31,6 +31,7 @@ export default {
   margin:0;
   padding: 0;
 }
+ 
 ul,li
 {
   list-style: none;
@@ -43,6 +44,9 @@ html
 {
   min-height: 100%;
   position: relative;
+}
+h1,h2,h3,h4{
+  font-weight: 300;
 }
 body
 {

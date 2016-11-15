@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
+import store from './store'
 import App from './App.vue'
 import router from './router'
 
@@ -14,9 +15,9 @@ Vue.http.options.xhr = { withCredentials: true };
 // 配置处理status，staus为0，不继续执行下面
 Vue.http.interceptors.push((request, next) => {
   next((response)=>{
-    // 如果服务器出现错误
-    if(!response.ok){
-      Vue.prototype.$message.error('something error');
+    if(response.status === 401){
+      store.dispatch('clearUser');
+      router.push('/login');
       return response;
     }
     else{
@@ -46,5 +47,6 @@ Vue.filter('showUsersName', function (users) {
 new Vue({
   el: '#app',
   router,
+  store:store,
   render: h => h(App)
 })

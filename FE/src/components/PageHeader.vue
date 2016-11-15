@@ -5,20 +5,30 @@
       <router-link tag="li" to="/"><a>账号管理系统</a></router-link>
     </div>
   </el-col>
-  <el-col :span="8" :offset="10">
+  <el-col :span="6" :offset="12">
     <el-row>
-      <el-col :span="8">  <router-link tag="li" to="/login"><a>登录</a></router-link></el-col>
-      <el-col :span="8">  <router-link tag="li" to="/"><a>注册</a></router-link></el-col>
-      <el-col :span="8">  <router-link tag="li" to="main/good_student"><a>指南</a></router-link></el-col>
+      <el-col :span="12" v-show="!$store.getters.user.username"> <router-link tag="li" to="/login"><a>登录</a></router-link></el-col>
+      <el-col :span="12" v-show="!$store.getters.user.username"> <router-link tag="li" to="/register"><a>注册</a></router-link></el-col>
+      <el-col :span="12" v-show="$store.getters.user.username"> <li>{{$store.getters.user.username}}</li> </el-col>
+      <el-col :span="12" v-show="$store.getters.user.username"> <a href="javascript:;" @click="signout">退出</a></el-col>
     </div>
     </el-row>
 </el-row>
 </template>
 
 <script>
+import authService from '../services/authService'
 
 export default {
- 
+  methods:{
+    signout (){
+      authService.signout()
+      .then(()=>{
+        this.$router.push('/login');
+      });
+    }
+  }
+
 }
 </script>
 

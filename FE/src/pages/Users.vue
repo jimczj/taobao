@@ -1,11 +1,4 @@
-<!--  username:  {type:String,required:true,unique: true},
-  email: {type :String,match:/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/},
-  sex:   {type:String,enum: ['F','M']},//F = Female,M = male
-  age: {type:Number,min:0},
-  class: String,
-  password: {type:String,required: true},
-  role_id: {type: Schema.Types.ObjectId, ref: 'Role'} -->
- <template>
+<template>
   <el-table :data="userData" style="width: 100%">
     <el-table-column prop="username" label="姓名" > </el-table-column>
     <el-table-column prop="email" label="邮箱" > </el-table-column>

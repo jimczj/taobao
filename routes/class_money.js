@@ -8,7 +8,7 @@ var responseJson = require('./utils/responseJson');
 /* GET ClassMoney listing. */
 router.get('/', checkLogin,function(req, res) {
 
-  ClassMoney.find({},responseJson(res));
+  ClassMoney.fetch({},responseJson(res));
 });
 
 //create a ClassMoney
@@ -19,7 +19,7 @@ router.post('/',has_perm('收班费帖'),function(req,res) {
 /* GET a ClassMoney . */
 router.get('/:id', checkLogin, function(req, res) {
 
-  ClassMoney.findById(req.params.id,responseJson(res));
+  ClassMoney.fetchOne(req.params.id,responseJson(res));
 });
 
 module.exports = router;

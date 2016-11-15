@@ -1,6 +1,3 @@
-<!--
-  Represents Page not Found page
--->
 <template>
   <main class="main not-found">
     <h1>404</h1>
@@ -15,6 +12,7 @@ export default {
 
 <style>
   .not-found {
+    text-align: center;
     padding: 30px;
   }
 </style>

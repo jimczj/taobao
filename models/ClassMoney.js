@@ -4,21 +4,56 @@ var Schema = mongoose.Schema;
 
 //收班费帖
 var ClassMoneySchema = new Schema({
-  creator : {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-  class_id:  {type:String,required:true},
-  howmuch: {type:Number,min:0},
-  deadline:   {type:Date,required:true},
-  payed_members: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
-  unpayed_members: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  class_id: {
+    type: String,
+    required: true
+  },
+  howmuch: {
+    type: Number,
+    min: 0
+  },
+  deadline: {
+    type: Date,
+    required: true
+  },
+  payed_members: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  unpayed_members: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
 });
 
 ClassMoneySchema.statics = {
   // 根据req传来到内容，进行 add meeting
-  createFromReq:function(req,cb){
-    let jsonObj = getJsonFromReq(ClassMoneySchema,req);
+  createFromReq: function(req, cb) {
+    let jsonObj = getJsonFromReq(ClassMoneySchema, req);
     jsonObj.creator = req.session.user._id;
     class_money = ClassMoney(jsonObj);
     return class_money.save(cb);
+  },
+  fetchOne: function(id, cb) {
+    return ClassMoney.findById(id)
+      .populate('creator')
+      .populate('payed_members')
+      .populate('unpayed_members')
+      .exec(cb);
+  },
+  fetch: function(json, cb) {
+    return ClassMoney.find(json)
+      .sort({
+        '_id': -1
+      })
+      .populate('creator')
+      .populate('payed_members')
+      .populate('unpayed_members')
+      .exec(cb);
   }
 }
 var ClassMoney = mongoose.model('ClassMoney', ClassMoneySchema);

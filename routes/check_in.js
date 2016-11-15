@@ -7,7 +7,7 @@ var has_perm = require('../middlewares/permission').has_perm;
 /* GET CheckIn listing. */
 router.get('/', checkLogin,function(req, res) {
 
-  CheckIn.find({}, function(err, checkIns) {
+  CheckIn.fetch({}, function(err, checkIns) {
     if(err){
       res.json({status:0,message:err.message})
     }
@@ -32,7 +32,7 @@ router.post('/',has_perm('发布考勤结果帖'),function(req,res) {
 /* GET a CheckIn . */
 router.get('/:id',checkLogin,function(req, res) {
 
-  CheckIn.findById(req.params.id, function(err, checkIn) {
+  CheckIn.fetchOne(req.params.id, function(err, checkIn) {
     if(err){
       res.json({status:0,message:err.message})
     }

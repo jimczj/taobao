@@ -1,4 +1,5 @@
 import Login from './pages/Login.vue'
+import Register from './pages/Register.vue'
 import App from './App.vue'
 import NotFound from './pages/NotFound.vue'
 import MainContainer from './pages/MainContainer.vue'
@@ -6,6 +7,9 @@ import GoodStudent from './pages/GoodStudent.vue'
 import ViewContainer from './components/ViewContainer.vue'
 import Users from './pages/Users.vue'
 import Meeting from './pages/Meeting.vue'
+import CheckIn from './pages/CheckIn.vue'
+import ClassMoney from './pages/ClassMoney.vue'
+import Reporting from './pages/Reporting.vue'
 
 export default [
   {
@@ -17,6 +21,14 @@ export default [
       public: true,
     },
     children:[
+      {
+        path: 'register',
+        name: 'register',
+        component: Register,
+        meta: {
+          public: true,
+        },
+      },
       {
         path: 'login',
         name: 'login',
@@ -52,6 +64,27 @@ export default [
           {
             path:'meeting',
             component:Meeting,
+            meta:{
+              public:false
+            }
+          },
+          {
+            path:'checkIn',
+            component:CheckIn,
+            meta:{
+              public:false
+            }
+          },
+          {
+            path:'classMoney',
+            component:ClassMoney,
+            meta:{
+              public:false
+            }
+          },
+          {
+            path:'reporting',
+            component:Reporting,
             meta:{
               public:false
             }

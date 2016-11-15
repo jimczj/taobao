@@ -17,7 +17,7 @@
     // 后端be
     cd be && npm install  // 安装
     npm start  // 启动
-    // 前端fe
+    // 前端 fe
     cd FE && npm install  // 安装（可能有点慢）
     npm run dev // 启动 
 

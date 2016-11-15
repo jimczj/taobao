@@ -7,8 +7,8 @@
   </el-col>
   <el-col :span="6" :offset="12">
     <el-row>
-      <el-col :span="12" v-show="!$store.getters.user.username"> <router-link tag="li" to="/login"><a>登录</a></router-link></el-col>
-      <el-col :span="12" v-show="!$store.getters.user.username"> <router-link tag="li" to="/register"><a>注册</a></router-link></el-col>
+      <el-col :span="12" v-show="!$store.getters.user.username"> <router-link tag="li" :to="{ name: 'login'}"><a>登录</a></router-link></el-col>
+      <el-col :span="12" v-show="!$store.getters.user.username"> <router-link tag="li" :to="{ name: 'register'}"><a>注册</a></router-link></el-col>
       <el-col :span="12" v-show="$store.getters.user.username"> <li>{{$store.getters.user.username}}</li> </el-col>
       <el-col :span="12" v-show="$store.getters.user.username"> <a href="javascript:;" @click="signout">退出</a></el-col>
     </div>

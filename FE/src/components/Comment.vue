@@ -9,8 +9,11 @@
     <ul v-show="data.isShowComment">
       <li v-show="!data.comments.length">暂时没有评论</li>
       <el-row v-for="comment in data.comments" class="comment">
-        <el-col :span="4"><p>{{comment.creator.username}}</p></el-col>
-        <el-col :span="18" :offset="2" class="content">{{comment.content}}</el-col>
+        <el-col :span="2">
+          <p><img class="avator" src="../assets/avator.jpg" alt="avator"></p>
+          <p>{{comment.creator.username}}</p>
+        </el-col>
+        <el-col :span="20" :offset="2" class="content">{{comment.content}}</el-col>
         <p class="create-time">{{comment.create_time}}</p>
       </el-row>
 
@@ -71,4 +74,24 @@ export default {
 </script>
 
 <style>
+
+  .avator{
+    width: 25px;
+    height: 25px;
+    border-radius: 3px;
+    background-color: #eee;
+  }
+  .commentItem{
+    min-height: 22px;
+    word-wrap: break-word;
+    color: #222;
+  }
+  .time{
+    color: #999;
+  }
+  .content{
+    vertical-align: center;
+    font-size: 13px;
+    line-height: 1.7;
+  }
 </style>

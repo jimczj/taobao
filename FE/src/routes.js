@@ -63,6 +63,7 @@ export default [
           },
           {
             path:'meeting',
+            name:'meeting',
             component:Meeting,
             meta:{
               public:false
@@ -70,6 +71,7 @@ export default [
           },
           {
             path:'checkIn',
+            name:'checkIn',
             component:CheckIn,
             meta:{
               public:false
@@ -77,6 +79,7 @@ export default [
           },
           {
             path:'classMoney',
+            name:'classMoney',
             component:ClassMoney,
             meta:{
               public:false
@@ -84,6 +87,7 @@ export default [
           },
           {
             path:'reporting',
+            name:'reporting',
             component:Reporting,
             meta:{
               public:false

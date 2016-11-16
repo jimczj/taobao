@@ -5,10 +5,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var ejs = require('ejs');
 var MongoStore = require('connect-mongo')(session);
 var config = require('./config');
 
-var routes = require('./routes/index');
+var index = require('./routes/index');
 var user = require('./routes/user');
 var role = require('./routes/role');
 var user_role = require('./routes/user_role');
@@ -17,6 +18,7 @@ var class_money = require('./routes/class_money');
 var good_student = require('./routes/good_student');
 var check_in = require('./routes/check_in');
 var comment =  require('./routes/comment');
+var auth =  require('./routes/auth');
 
 var app = express();
 
@@ -33,8 +35,9 @@ mongoose.connection.once ('open', function () {
 });
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('views', path.join(__dirname, 'FE'));
+app.engine('.html', ejs.__express);
+app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -42,7 +45,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'FE')));
 
 //配置session
 app.use(session({
@@ -55,8 +58,8 @@ app.use(session({
 }));
 
 
-
-app.use('/api', routes);
+app.use('/',index);
+app.use('/api', auth);
 app.use('/api/user', user);
 app.use('/api/role',role);
 app.use('/api/user_role',user_role);

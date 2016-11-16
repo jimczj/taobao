@@ -16,7 +16,7 @@ export default [
     path: '/',
     name: 'Home',
     component:ViewContainer,
-    redirect:'login',
+    redirect:'main/users',
     meta: {
       crumb: 'Home',
       public: true,
@@ -41,7 +41,7 @@ export default [
       {
         path:'main',
         name:'main',
-        redirect:'main/good_student',
+        redirect:'main/users',
         component:MainContainer,
         meta: {
           public: false,

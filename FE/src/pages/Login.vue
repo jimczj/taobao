@@ -4,7 +4,7 @@
     <!-- 登陆框 start-->
     <div class="login_form">
       <el-input placeholder="请输入姓名" v-model="user.username"> </el-input>
-      <el-input placeholder="请输入密码" v-model="user.password" type="password"></el-input>
+      <el-input placeholder="请输入密码" v-model="user.password" type="password" @keyup.enter="login"></el-input>
       <el-button @click="login">登陆</el-button>
     </div>
     <!-- 登陆框 end -->

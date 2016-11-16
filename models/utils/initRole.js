@@ -85,4 +85,8 @@ Role.findOne({
       }
     });
   }
+});
+
+mongoose.disconnect(()=>{
+  console.log('完成初始化');
 })

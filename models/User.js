@@ -38,6 +38,7 @@ UserSchema.statics = {
   // 根据req传来到内容，进行 add user,并设置初始角色
   createFromReq: function(req, cb) {
     let jsonObj = getJsonFromReq(UserSchema, req);
+    jsonObj.money = 0;
     Role.findOne({
       role_name: 'customer'
     }, function(err, role) {

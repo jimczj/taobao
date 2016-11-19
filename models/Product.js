@@ -31,21 +31,26 @@ var ProductSchema = new Schema({
   },//剩余库存
 });
 
-MeetingSchema.statics = {
+ProductSchema.statics = {
   // 根据req传来到内容，进行 add production
   createFromReq: function(req, cb) {
     let jsonObj = getJsonFromReq(ProductSchema, req);
     jsonObj.creator = req.session.user._id;
-    meeting = Meeting(jsonObj);
-    return meeting.save(cb);
+    product = Product(jsonObj);
+    return product.save(cb);
+  },
+  // 根据req传来到内容，进行更新
+  updateByIdFromReq: function(req, cb) {
+    let jsonObj = getJsonFromReq(ProductSchema, req);
+    return Product.findByIdAndUpdate(req.params.id, jsonObj, cb);
   },
   fetchOne: function(id, cb) {
-    return Meeting.findById(id)
+    return Product.findById(id)
       .populate('creator')
       .exec(cb);
   },
   fetch: function(json, cb) {
-    return Meeting.find(json)
+    return Product.find(json)
       .sort({
         '_id': -1
       })

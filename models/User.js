@@ -19,11 +19,11 @@ var UserSchema = new Schema({
     type: String,
     enum: ['男', '女']
   }, 
-  age: {
-    type: Number,
-    min: 0
-  },
-  class: String,
+  money:{
+    type:Number,
+    default:0,
+    min:0
+  }
   password: {
     type: String,
     required: true

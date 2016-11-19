@@ -13,11 +13,8 @@ var index = require('./routes/index');
 var user = require('./routes/user');
 var role = require('./routes/role');
 var user_role = require('./routes/user_role');
-var meeting = require('./routes/meeting');
-var class_money = require('./routes/class_money');
-var good_student = require('./routes/good_student');
-var check_in = require('./routes/check_in');
-var comment =  require('./routes/comment');
+var product = require('./routes/product');
+var order = require('./routes/order');
 var auth =  require('./routes/auth');
 
 var app = express();
@@ -63,11 +60,8 @@ app.use('/api', auth);
 app.use('/api/user', user);
 app.use('/api/role',role);
 app.use('/api/user_role',user_role);
-app.use('/api/meeting',meeting);
-app.use('/api/class_money',class_money);
-app.use('/api/good_student',good_student);
-app.use('/api/check_in',check_in);
-app.use('/api/comment',comment);
+app.use('/api/product',product);
+app.use('/api/order',order);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -48,6 +48,28 @@ Role.findOne({
   }
 });
 
-mongoose.disconnect(()=>{
-  console.log('完成初始化');
-})
+Role.findOne({
+  role_name: 'customer'
+}, function(err, role) {
+  if (err) {
+    console.log(err)
+  } else {
+    let user = User({
+      username: 'supercustomer',
+      password: 'supercustomer',
+      money: 99999999,
+      role_id: role._id,
+    });
+    user.save(function(err) {
+      if (err) {
+        console.log("create supercustomer user fail")
+      } else {
+        console.log("create supercustomer user success")
+      }
+    });
+  }
+});
+
+// mongoose.disconnect(()=>{
+//   console.log('完成初始化');
+// })

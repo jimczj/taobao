@@ -10,10 +10,10 @@ var OrderSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },//购买者
-  products: {
-    type: [mongoose.Schema.Types.ObjectId],
+  products: [{
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Product'
-  },//所购买到产品
+  }],//所购买到产品
   totalPrice: {
     type: Number,
     required: true

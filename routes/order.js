@@ -15,7 +15,7 @@ router.get('/', checkLogin,function(req, res) {
 
 //create a Order
 router.post('/',has_perm('buyProduct'),function(req,res) {
-  let jsonObj = req.body.products;
+  let jsonObj = {products:req.body.products};
 
   jsonObj.customer = req.session.user._id;
   jsonObj.create_time = Date.now();
@@ -29,13 +29,14 @@ router.post('/',has_perm('buyProduct'),function(req,res) {
     .catch((err)=>{
       return res.json({status:0,message:err.message});
     })
-  })
+  });
    
   User.findById(req.session.user._id)
   .then((user)=>{
     if(user.money < jsonObj.totalPrice){
       throw Error("没有足够的现金，请充值");
     } else {
+      console.log(jsonObj);
       order = Order(jsonObj);
       order.save()
       .then(()=>{

@@ -26,6 +26,6 @@ router.delete('/:id',has_perm('deleteProduct'),function(req, res) {
 
 /* update a Product . */
 router.put('/:id',has_perm('updateProduct'),function(req, res) {
-  Product.updateByIdFromReq(req.params.id,responseJson(res,"成功更新产品"));
+  Product.updateByIdFromReq(req,responseJson(res,"成功更新产品"));
 });
 module.exports = router;

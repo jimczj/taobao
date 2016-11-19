@@ -5,11 +5,12 @@
       <router-link tag="li" to="/"><a href="javascript:;">商城</a></router-link>
     </div>
   </el-col>
-  <el-col :span="6" :offset="12">
+  <el-col :span="12" :offset="6">
     <el-row>
-      <el-col :span="12" v-show="!$store.getters.user.username"> <router-link tag="li" :to="{ name: 'login'}"><a>登录</a></router-link></el-col>
-      <el-col :span="12" v-show="$store.getters.user.username"> <li>{{$store.getters.user.username}}</li> </el-col>
-      <el-col :span="12" v-show="$store.getters.user.username"> <a href="javascript:;" @click="signout">退出</a></el-col>
+      <el-col :span="24" v-show="!$store.getters.user.username"> <router-link tag="li" :to="{ name: 'login'}"><a>登录</a></router-link></el-col>
+      <el-col :span="8" v-show="$store.getters.user.username"> <li>{{$store.getters.user.username}}</li> </el-col>
+      <el-col :span="8" v-show="$store.getters.user.username" > <router-link tag="li" :to="{ name: 'order'}"><a>订单</a></router-link> </el-col>
+      <el-col :span="8" v-show="$store.getters.user.username"> <a href="javascript:;" @click="signout">退出</a></el-col>
     </div>
     </el-row>
     <MySwipe/>
@@ -49,5 +50,9 @@ export default {
 }
 .header a:hover{
   color: #EFF2F7;
+}
+.header li
+{
+  text-align: center;
 }
 </style>

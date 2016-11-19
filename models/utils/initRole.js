@@ -32,6 +32,6 @@ root.save(function(err) {
 
 
 
-mongoose.disconnect(()=>{
-  console.log('完成初始化');
-})
+// mongoose.disconnect(()=>{
+//   console.log('完成初始化');
+// })

@@ -4,7 +4,7 @@ import App from './App.vue'
 import NotFound from './pages/NotFound.vue'
 import ViewContainer from './components/ViewContainer.vue'
 import Product from './pages/Product.vue'
-
+import Order from './pages/Order.vue'
 export default [
   {
     path: '/',
@@ -36,6 +36,14 @@ export default [
         path: 'product',
         name: 'product',
         component: Product,
+        meta: {
+          public: false,
+        },
+      },
+      {
+        path:'order',
+        name:'order',
+        component: Order,
         meta: {
           public: false,
         },

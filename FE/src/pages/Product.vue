@@ -25,27 +25,27 @@
     
     <!-- Form start-->
     <el-row class="list-title">
-      <el-col :span="6" class="text_left"><i class="el-icon-menu"></i> &nbsp&nbsp班会帖</el-col>
+      <el-col :span="6" class="text_left"><i class="el-icon-menu"></i> &nbsp&nbsp产品列表</el-col>
       <el-col :span="6" :offset="12" class="text_right"> <el-button type="text" @click.native="dialogFormVisible = true"><i class="el-icon-plus"></i></el-button></el-col>
     </el-row> 
-    <el-dialog title="新增班会帖" v-model="dialogFormVisible">
+    <el-dialog title="新增产品" v-model="dialogFormVisible">
       <el-form :model="form">
-        <el-form-item label="班级ID">
-          <el-input v-model="form.class_id" auto-complete="off"></el-input>
+        <el-form-item label="产品名称">
+          <el-input v-model="form.name" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="地点">
-          <el-input v-model="form.place" auto-complete="off"></el-input>
+        <el-form-item label="产品描述">
+          <el-input v-model="form.description" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="话题">
-          <el-input v-model="form.topic" auto-complete="off"></el-input>
+        <el-form-item label="单价">
+          <el-input v-model="form.price" auto-complete="off" type="number" min="0"></el-input>
         </el-form-item>
-        <el-form-item label="要求人数">
-          <el-input v-model="form.numbers_required" type="number" auto-complete="off"></el-input>
+        <el-form-item label="库存">
+          <el-input v-model="form.number" type="number" min="0" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click.native="dialogFormVisible = false" @click="createMeeting">确 定</el-button>
+        <el-button type="primary" @click.native="dialogFormVisible = false" @click="createProduct">确 定</el-button>
       </div>
     </el-dialog>
     <!-- Form end-->
@@ -60,9 +60,9 @@
         <p>剩余:{{item.number}} </p>
         <el-row class="middle">
           <el-col :span="6" class="product_price">￥{{item.price}}</el-col>
-          <el-col :span="6" offset="12">
-            <el-button type="text" @click="minusProduct(item)"><i class="el-icon-minus"></i></el-button>
-            <span class="buy_number">{{item.buyNumber}}</span><el-button type="text" @click="addProduct(item)"><i class="el-icon-plus"></i></el-button>
+          <el-col :span="6" :offset="12" class="right">
+            <el-button type="text" @click="minusOrderProduct(item)" v-show="item.buyNumber"><i class="el-icon-minus"></i></el-button>
+            <span class="buy_number">{{item.buyNumber}}</span><el-button type="text" @click="addOrderProduct(item)"><i class="el-icon-plus"></i></el-button>
           </el-col>
         </el-row>
       </el-col>
@@ -73,15 +73,17 @@
     <el-col :span="12">
       <el-row>
         <el-col :span="6">
-          <span class="shoppingCart_icon"></span>
+          <el-badge :value="totalCount" class="middle">
+            <el-button size="small" class="shoppingCart_icon"></el-button>
+          </el-badge>
         </el-col>
         <el-col :span="18">
-          <p class="total_money">￥{{totalPrice}}</p>
+          <p class="total_money middle">￥{{totalPrice}}</p>
         </el-col>
       </el-row>
     </el-col>
-    <el-col :span="6" offset="6">
-      <p class="account">选好了</p>
+    <el-col :span="6" :offset="6">
+      <p class="account" @click="createOrder">选好了</p>
     </el-col>
     </el-row>
     <!-- shoppingCart end -->
@@ -90,6 +92,7 @@
 
 <script>
 import productService from '../services/productService'
+import orderService from '../services/orderService'
 import MySwipe from '../components/MySwipe.vue'
 
 export default {
@@ -97,17 +100,14 @@ export default {
     let data = {
       dialogFormVisible:false,
       list: [],
+      selectedList:[],
       totalPrice:0,
       totalCount:0,
       form:{
-        class_id:'',
-        place:'',
-        title:'',
-        numbers_required:0,
-        numbers_gotten:0,
-        topic:'',
-        pool_agrees:'',
-        pool_disagrees:'',
+        name:'',
+        description:'',
+        price:0,
+        number:0,
       },
     };
     return data;
@@ -116,37 +116,71 @@ export default {
   components:{MySwipe},
   computed:{
     totalPrice (){
-      return list.reduce((a,b)=>{
-        return a.price*a.buyNumber + b.price*b.buyNumber;
+      return this.list.reduce((a,b)=>{
+        return a + b.price*b.buyNumber;
       },0)
     },
-    totalCount(){
-      return list.reduce((a,b)=>{
-        return a.buyNumber + b.buyNumber;
+    totalCount (){
+      return this.list.reduce((a,b)=>{
+        return a + b.buyNumber;
       },0)
+    },
+    selectedList (){
+      let list = []
+      this.list.forEach((item)=>{
+        if(item.buyNumber>0){
+          list.push(item) ;
+        }
+      });
+      return list;
     }
+
 
   },
 
   methods:{
-    minusProduct (item) {
-      console.log(item);
-      item.number--;
+    minusOrderProduct (item) {
+      if(item.buyNumber>0){
+        item.buyNumber--;
+      } 
     },
-    addProduct (item) {
-      console.log(item);
-      item.number++;
+    addOrderProduct (item) {
+      item.buyNumber++;
     },
+    createProduct () {
+      productService.create(this.form)
+        .then(()=>{
+          this.form = {
+            name:'',
+            description:'',
+            price:0,
+            number:0,
+          };
+          this.loadProductList();
+        });
+    },
+    createOrder (){
+      let json = {products:[]};
+      this.selectedList.forEach((item)=>{
+        json.products.push({product_id:item._id,number:item.buyNumber});
+      });
+      orderService.create(json).then(()=>{
+        this.$router.push('/order');
+      });
+    },
+    loadProductList (){
+      productService.getList().then(res =>{
+        res.body.json.forEach((item,index)=>{
+          res.body.json[index].buyNumber = 0;
+        });
+        this.list = res.body.json;
+      });
+    }
     
   },
 
   created() {
-    productService.getList().then(res =>{
-      res.body.json.forEach((item,index)=>{
-        res.body.json[index].buyNumber = 0;
-      });
-      this.list = res.body.json;
-    });
+    this.loadProductList();
   }
 }
 </script>
@@ -192,7 +226,10 @@ export default {
   -webkit-justify-content: center;
   justify-content: center;
 }
-
+.right
+{
+  text-align: right;
+}
 .shoppingCart
 {
   background-color: #f5f5f5;
@@ -211,7 +248,7 @@ export default {
 {
   display: block;
   height: 4rem;
-  max-width:4rem; 
+  max-width:100%;
   background: url(../assets/shoppingCart.png) no-repeat center;
   background-size:cover;
 
@@ -220,12 +257,15 @@ export default {
 .shoppingCart .shoppingCart_icon
 {
   width: 100%;
-  max-height: 5rem;
+  height: 100%;
   text-align: center;
+  border:none;
 
 }
 .shoppingCart .total_money
 {
+  height: 100%;
+  width: 100%;
   color: #de3232;
   text-align: center;
 

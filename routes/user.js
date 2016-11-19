@@ -3,7 +3,6 @@ var router = express.Router();
 var checkLogin = require('../middlewares/check').checkLogin;
 var User = require('../models/User');
 var responseJson = require('./utils/responseJson');
-var CheckIn = require('../models/CheckIn');
 
 
 

@@ -23,7 +23,7 @@ var UserSchema = new Schema({
     type:Number,
     default:0,
     min:0
-  }
+  },
   password: {
     type: String,
     required: true
@@ -39,7 +39,7 @@ UserSchema.statics = {
   createFromReq: function(req, cb) {
     let jsonObj = getJsonFromReq(UserSchema, req);
     Role.findOne({
-      role_name: '班级成员'
+      role_name: 'customer'
     }, function(err, role) {
       if (err) {
         cb(err);

@@ -55,8 +55,8 @@ Role.findOne({
     console.log(err)
   } else {
     let user = User({
-      username: 'supercustomer',
-      password: 'supercustomer',
+      username: 'customer2',
+      password: 'customer2',
       money: 99999999,
       role_id: role._id,
     });

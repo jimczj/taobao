@@ -24,7 +24,7 @@ var ProductSchema = new Schema({
     type: Number,
     required: true
   },//产品价格
-  numbers: {
+  number: {
     type: Number,
     min: 0,
     default: 0

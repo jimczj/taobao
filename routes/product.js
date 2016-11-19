@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
-var checkLogin = require('../middlewares/check').checkLogin;
-var has_perm = require('../middlewares/permission').has_perm;
-var Product = require('../models/Product');
-var responseJson = require('./utils/responseJson');
+const express = require('express');
+const router = express.Router();
+const checkLogin = require('../middlewares/check').checkLogin;
+const has_perm = require('../middlewares/permission').has_perm;
+const Product = require('../models/Product');
+const responseJson = require('./utils/responseJson');
 /* GET Product listing. */
 router.get('/', checkLogin,function(req, res) {
   Product.fetch({},responseJson(res));

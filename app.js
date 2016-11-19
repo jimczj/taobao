@@ -1,27 +1,28 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var ejs = require('ejs');
-var MongoStore = require('connect-mongo')(session);
-var config = require('./config');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const ejs = require('ejs');
+require("babel-core/register");
+const MongoStore = require('connect-mongo')(session);
+const config = require('./config');
 
-var index = require('./routes/index');
-var user = require('./routes/user');
-var role = require('./routes/role');
-var user_role = require('./routes/user_role');
-var product = require('./routes/product');
-var order = require('./routes/order');
-var auth =  require('./routes/auth');
+const index = require('./routes/index');
+const user = require('./routes/user');
+const role = require('./routes/role');
+const user_role = require('./routes/user_role');
+const product = require('./routes/product');
+const order = require('./routes/order');
+const auth =  require('./routes/auth');
 
-var app = express();
+const app = express();
 
 
 // mongoose config
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 mongoose.promise = global.promise;
 mongoose.connect(config.mongodb);  
 mongoose.connection.on ('error', () => {
@@ -65,7 +66,7 @@ app.use('/api/order',order);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });

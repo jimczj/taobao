@@ -12,11 +12,13 @@
       <el-col :span="12" v-show="$store.getters.user.username"> <a href="javascript:;" @click="signout">退出</a></el-col>
     </div>
     </el-row>
+    <MySwipe/>
 </el-row>
 </template>
 
 <script>
 import authService from '../services/authService'
+import MySwipe from './MySwipe.vue'
 
 export default {
   methods:{
@@ -26,7 +28,8 @@ export default {
         this.$router.push('/login');
       });
     }
-  }
+  },
+  components:{MySwipe}
 
 }
 </script>

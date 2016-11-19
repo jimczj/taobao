@@ -54,7 +54,7 @@ body
   overflow: auto;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
-  background-color: #f3f2e8;
+  background-color: #fff;
   padding-bottom: 30px;
   min-height: 100%;
 }

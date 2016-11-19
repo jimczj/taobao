@@ -5,11 +5,12 @@ var config = require('../../config');
 
 mongoose.connect(config.mongodb);
 
-let leader = Role({
-  role_name: '班长',
-  role_rights: ['发布开班会帖', '收班费帖', '收党费帖', '评优等生帖', '发布考勤结果帖', '回复帖'],
+
+let customer = Role({
+  role_name: 'customer',
+  role_rights: ['buyProduct']
 })
-leader.save(function(err) {
+customer.save(function(err) {
   if (err) {
     console.log("create role leader success");
   } else {
@@ -17,11 +18,11 @@ leader.save(function(err) {
   }
 });
 
-let competitive_person = Role({
-  role_name: '团支书',
-  role_rights: ['收党费帖', '评优等生帖', '发布考勤结果帖', '回复帖'],
+let root = Role({
+  role_name: 'root',
+  role_rights: ['addProduct', 'deleteProduct', 'updateProduct'],
 })
-competitive_person.save(function(err) {
+root.save(function(err) {
   if (err) {
     console.log("create role competitive_person success");
   } else {
@@ -29,45 +30,9 @@ competitive_person.save(function(err) {
   }
 });
 
-let learning_committee_member = Role({
-  role_name: '学习委员',
-  role_rights: ['评优等生帖', '发布考勤结果帖', '回复帖'],
-})
-learning_committee_member.save(function(err) {
-  if (err) {
-    console.log("create role learning_committee_member success");
-  } else {
-    console.log("create role learning_committee_member fail")
-  }
-});
-
-let class_representative = Role({
-  role_name: '课代表',
-  role_rights: ['评优等生帖', '发布考勤结果帖', '回复帖'],
-})
-class_representative.save(function(err) {
-  if (err) {
-    console.log("create role class_representative success");
-  } else {
-    console.log("create role class_representative fail")
-  }
-});
-
-let class_member = Role({
-  role_name: '班级成员',
-  role_rights: ['回复帖'],
-})
-class_member.save(function(err) {
-  if (err) {
-    console.log("create role class_member success");
-  } else {
-    console.log("create role class_member fail")
-  }
-});
-
 
 Role.findOne({
-  role_name: '班长'
+  role_name: 'root'
 }, function(err, role) {
   if (err) {
     console.log(err)
@@ -82,6 +47,28 @@ Role.findOne({
         console.log("create root user fail")
       } else {
         console.log("create root user success")
+      }
+    });
+  }
+});
+
+
+Role.findOne({
+  role_name: 'customer'
+}, function(err, role) {
+  if (err) {
+    console.log(err)
+  } else {
+    let user = User({
+      username: 'customer',
+      password: 'customer',
+      role_id: role._id,
+    });
+    user.save(function(err) {
+      if (err) {
+        console.log("create customer user fail")
+      } else {
+        console.log("create customer user success")
       }
     });
   }

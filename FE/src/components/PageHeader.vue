@@ -2,13 +2,12 @@
 <el-row class="header">
   <el-col :span="4" :offset="2">
     <div class="grid-content bg-purple-dark">
-      <router-link tag="li" to="/"><a>账号管理系统</a></router-link>
+      <router-link tag="li" to="/"><a href="javascript:;">商城</a></router-link>
     </div>
   </el-col>
   <el-col :span="6" :offset="12">
     <el-row>
       <el-col :span="12" v-show="!$store.getters.user.username"> <router-link tag="li" :to="{ name: 'login'}"><a>登录</a></router-link></el-col>
-      <el-col :span="12" v-show="!$store.getters.user.username"> <router-link tag="li" :to="{ name: 'register'}"><a>注册</a></router-link></el-col>
       <el-col :span="12" v-show="$store.getters.user.username"> <li>{{$store.getters.user.username}}</li> </el-col>
       <el-col :span="12" v-show="$store.getters.user.username"> <a href="javascript:;" @click="signout">退出</a></el-col>
     </div>
@@ -39,7 +38,7 @@ export default {
   font-weight: 400;
   color: #fff;
   padding: 20px;
-  background-color: #20a0ff;
+  background-color: #de3232;
   margin-bottom: 20px;
 }
 .header a:visited{

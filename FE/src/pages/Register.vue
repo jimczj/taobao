@@ -9,7 +9,7 @@
       <el-input placeholder="请输入邮箱" v-model="user.email" type="email"></el-input>
       <el-input placeholder="请输入班级" v-model="user.class" ></el-input>
       <el-input placeholder="请输入年龄" v-model="user.age" type="number" min="0"></el-input>
-      <el-select v-model="user.sex">
+      <el-select v-model="user.sex" placeholder="性别">
         <el-option
         v-for="item in [{label:'男',value:'男'},{label:'女',value:'女'}]"
         :label="item.label"

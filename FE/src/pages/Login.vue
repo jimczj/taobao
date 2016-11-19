@@ -6,6 +6,7 @@
       <el-input placeholder="请输入姓名" v-model="user.username"> </el-input>
       <el-input placeholder="请输入密码" v-model="user.password" type="password" @keyup.enter="login"></el-input>
       <el-button @click="login">登陆</el-button>
+      <p><router-link tag="li" :to="{ name: 'register'}"><a>注册</a></router-link></p>
     </div>
     <!-- 登陆框 end -->
   </div>
@@ -28,7 +29,7 @@ export default {
   methods:{
     login () {
       authService.login(this.user).then(()=>{
-        this.$router.push('/main/good_student');
+        this.$router.push('/product');
       });
     }
   }

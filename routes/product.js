@@ -5,7 +5,7 @@ const has_perm = require('../middlewares/permission').has_perm;
 const Product = require('../models/Product');
 const responseJson = require('./utils/responseJson');
 /* GET Product listing. */
-router.get('/', checkLogin,function(req, res) {
+router.get('/',function(req, res) {
   Product.fetch({},responseJson(res));
 });
 

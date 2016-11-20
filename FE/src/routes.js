@@ -37,7 +37,7 @@ export default [
         name: 'product',
         component: Product,
         meta: {
-          public: false,
+          public: true,
         },
       },
       {

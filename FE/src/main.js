@@ -37,11 +37,16 @@ Vue.http.interceptors.push((request, next) => {
 
 Vue.directive('hasPermission', {
   bind: function (el,permission) {
-   if (store.getters.user.role_id.role_rights.includes(permission.value)){
-    el.style.display = "inline-block";
-  } else {
+   if(!store.getters.user.role_id){
     el.style.display = "none";
   }
+  else {
+    if(store.getters.user.role_id.role_rights.includes(permission.value)){
+      el.style.display = "inline-block";
+    } else {
+      el.style.display = "none";
+    }
+  } 
 }
 });
 

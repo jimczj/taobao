@@ -1,7 +1,7 @@
 
 <template>
   <main>
-    <el-row class="list-title">
+    <el-row class="list-title" v-loading.fullscreen.lock="fullscreenLoading">
       <el-col :span="6" class="text_left"><i class="el-icon-menu"></i> &nbsp&nbsp我的订单</el-col>
     </el-row> 
     <!-- order start -->
@@ -39,14 +39,16 @@ import orderService from '../services/orderService'
 export default {
   data () {
     let data = {
+      fullscreenLoading:false,
       list: [],
     };
     return data;
   },
   created() {
+    this.fullscreenLoading = true;
     orderService.getList().then(res =>{
       this.list = res.body.json;
-      console.log(this.list);
+      this.fullscreenLoading = false;
     });
   }
 }

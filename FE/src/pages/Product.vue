@@ -83,7 +83,7 @@
     </el-dialog>
     <!-- add product end-->
     <!-- list-title start-->
-    <el-row class="list-title">
+    <el-row class="list-title" v-loading.fullscreen.lock="fullscreenLoading">
       <el-col :span="6" class="text_left"><i class="el-icon-menu"></i> &nbsp&nbsp产品列表</el-col>
       <el-col :span="6" :offset="12" class="text_right" v-hasPermission="'addProduct'"> <el-button type="text" @click.native="dialogFormVisible = true"><i class="el-icon-plus"></i></el-button></el-col>
     </el-row> 
@@ -153,6 +153,7 @@ export default {
     let data = {
       dialogFormVisible:false,
       dialogFormVisible2:false,
+      fullscreenLoading:false,
       shoppingProductVisible:false,
       list: [],
       selectedList:[],
@@ -235,7 +236,7 @@ export default {
       });
     },
     loadProductList (){
-      productService.getList().then(res =>{
+      return productService.getList().then(res =>{
         res.body.json.forEach((item,index)=>{
           res.body.json[index].buyNumber = 0;
         });
@@ -299,7 +300,10 @@ export default {
   },
 
   created() {
-    this.loadProductList();
+    this.fullscreenLoading = true;
+    this.loadProductList().then(()=>{
+      this.fullscreenLoading = false;
+    });
   }
 }
 </script>

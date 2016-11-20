@@ -7,18 +7,25 @@
     <!-- order start -->
     <el-row class="product_item" v-for="item in list">
       <el-col :span="6" class="product_pic_box">
-        <img src="../assets/product1.jpg" alt="img">
+        <p>购买时间：</p>
+        <p>{{item.create_time}}</p>
       </el-col>
       <el-col :span="18" class="product">
         <ul>
           <li v-for="product in item.products">
-            <h2>产品名称：{{product.name}}</h2>
-            <p>产品描述：{{product.description}}</p>
-            <p>产品单价：{{product.price}}</p>
+            <el-row> 
+              <el-col :span="6" class="padding">
+                <img src="../assets/product1.jpg" alt="img">
+              </el-col>
+              <el-col :span="18" class="padding">
+                <h2>产品名称：{{product.name}}</h2>
+                <p>产品描述：{{product.description}}</p>
+                <p>产品单价：<span class="product_price">￥{{product.price}}</span></p>
+              </el-col>
+            </el-row>
           </li>
         </ul>
-        <p>总价:{{item.totalPrice}} </p>
-        <p>购买时间：{{item.create_time}}</p>
+        <p>总价:<span class="product_price">￥{{item.totalPrice}}</span></p>
       </el-col>
     </el-row>
      <!-- order end -->
@@ -39,6 +46,7 @@ export default {
   created() {
     orderService.getList().then(res =>{
       this.list = res.body.json;
+      console.log(this.list);
     });
   }
 }
@@ -63,14 +71,23 @@ export default {
   padding: 2rem;
   vertical-align: top;
 }
-.product_pic_box img
+.product img
 {
   width: 100%;
   max-height:200px; 
 }
+.product_price
+{
+  color: #de3232;
+}
 .product p
 {
   margin:0.5rem 0;
+}
+.padding
+{
+  padding: 1rem;
+  overflow: hidden;
 }
 .product_price
 {

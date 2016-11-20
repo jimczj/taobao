@@ -64,7 +64,7 @@ UserSchema.statics = {
   },
   //获取除了密码之外的所有字段
   fetchById: function(id, cb) {
-    return this.findById(id, 'username email sex age class role_id')
+    return this.findById(id)
       .populate('role_id')
       .exec(cb);
   },

@@ -18,7 +18,6 @@ router.post('/login', function(req, res) {
     }
     else{
       let user = users[0];
-
       if(user.password === sha1(req.body.password)){
         req.session.user = user;
         user.password ='';

@@ -11,9 +11,9 @@ let customer = Role({
 })
 customer.save(function(err) {
   if (err) {
-    console.log("create role leader success");
+    console.log("create role customer success");
   } else {
-    console.log("create role leader fail")
+    console.log("create role customer fail")
   }
 });
 
@@ -23,9 +23,9 @@ let root = Role({
 })
 root.save(function(err) {
   if (err) {
-    console.log("create role competitive_person success");
+    console.log("create role root success");
   } else {
-    console.log("create role competitive_person fail")
+    console.log("create role root fail")
   }
 });
 

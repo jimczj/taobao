@@ -145,6 +145,7 @@
 <script>
 import productService from '../services/productService'
 import orderService from '../services/orderService'
+import userService from '../services/userService'
 import MySwipe from '../components/MySwipe.vue'
 
 export default {
@@ -225,7 +226,12 @@ export default {
         json.products.push({product_id:item._id,number:item.buyNumber});
       });
       return orderService.create(json).then(()=>{
-        this.$router.push('/order');
+        userService.getUser(this.$store.getters.user._id)
+          .then((res)=>{
+            this.$store.dispatch('saveUser',res.body.json);
+            this.$router.push('/order');
+          });
+        
       });
     },
     loadProductList (){

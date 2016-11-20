@@ -1,22 +1,8 @@
-<!--   customer: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },//购买者
-  products: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product'
-  }],//所购买到产品
-  totalPrice: {
-    type: Number,
-    required: true
-  },//总价格
-  create_time: {
-    type: Date
-  }, -->
+
 <template>
   <main>
     <el-row class="list-title">
-      <el-col :span="6" class="text_left"><i class="el-icon-menu"></i> &nbsp&nbsp订单</el-col>
+      <el-col :span="6" class="text_left"><i class="el-icon-menu"></i> &nbsp&nbsp我的订单</el-col>
     </el-row> 
     <!-- order start -->
     <el-row class="product_item" v-for="item in list">

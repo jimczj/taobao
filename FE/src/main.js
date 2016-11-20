@@ -35,14 +35,15 @@ Vue.http.interceptors.push((request, next) => {
   });
 });
 
-Vue.filter('showUsersName', function (users) {
-  let usersname = '';
-  for(let i in users){
-    usersname += users[i].username+',';
+Vue.directive('hasPermission', {
+  bind: function (el,permission) {
+   if (store.getters.user.role_id.role_rights.includes(permission.value)){
+    return `style="display: block;"`;
+  } else {
+    return `style="display: none;"`;
   }
-  //去掉最后一个逗号
-  return usersname.substring(0,usersname.length-1);
-})
+}
+});
 
 new Vue({
   el: '#app',

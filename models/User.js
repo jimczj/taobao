@@ -58,7 +58,7 @@ UserSchema.statics = {
   },
   //获取除了密码之外的所有字段
   fetch: function(json, cb) {
-    return this.find(json, 'username email sex age class role_id')
+    return this.find(json)
       .populate('role_id')
       .exec(cb);
   },

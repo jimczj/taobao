@@ -55,7 +55,7 @@ body
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   background-color: #fff;
-  padding-bottom: 30px;
+  padding-bottom: 3rem;
   min-height: 100%;
 }
 *:focus { outline: none; }

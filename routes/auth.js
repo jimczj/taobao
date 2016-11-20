@@ -12,11 +12,13 @@ router.post('/login', function(req, res) {
   if(!req.body.password){
     res.json({status:0,message:'password is required'});  
   }
-  User.findOne({username:req.body.username},function(err,user){
-    if(err||!user){
+  User.fetch({username:req.body.username},function(err,users){
+    if(err||!users){
       res.json({status:0,message:'该用户不存在'});
     }
     else{
+      let user = users[0];
+
       if(user.password === sha1(req.body.password)){
         req.session.user = user;
         user.password ='';

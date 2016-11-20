@@ -100,9 +100,8 @@
         <el-row class="middle">
           <el-col :span="18"><h2>{{item.name}}</h2></el-col>
           <el-col :span="6" class="right">
-            
-          <el-button type="text" @click="confirmEdit(item)"><i class="el-icon-edit"></i></el-button>
-            <el-button type="text" @click="confirmDelete(item)"><i class="el-icon-minus"></i></el-button>
+            <el-button type="text" @click="confirmEdit(item)" v-hasPermission="'updateProduct'"><i class="el-icon-edit"></i></el-button>
+            <el-button type="text" @click="confirmDelete(item)" v-hasPermission="'deleteProduct'"><i class="el-icon-delete"></i></el-button>
           </el-col>
         </el-row>
         <p>{{item.description}} </p>
@@ -110,14 +109,14 @@
         <el-row class="middle">
           <el-col :span="6" class="product_price">￥{{item.price}}</el-col>
           <el-col :span="6" :offset="12" class="right">
-            <el-button type="text" @click="minusOrderProduct(item)" v-show="item.buyNumber"><i class="el-icon-minus"></i></el-button>
-            <span class="buy_number">{{item.buyNumber}}</span><el-button type="text" @click="addOrderProduct(item)"><i class="el-icon-plus"></i></el-button>
+            <el-button type="text" @click="minusOrderProduct(item)" v-show="item.buyNumber" v-hasPermission="'buyProduct'"><i class="el-icon-minus"></i></el-button>
+            <span class="buy_number" v-hasPermission="'buyProduct'">{{item.buyNumber}}</span><el-button type="text" @click="addOrderProduct(item)" v-hasPermission="'buyProduct'"><i class="el-icon-plus"></i></el-button>
           </el-col>
         </el-row>
       </el-col>
     </el-row>
      <!-- product end -->
-    <el-row class="shoppingCart">
+    <el-row class="shoppingCart" v-hasPermission="'buyProduct'">
       <el-col :span="12" class="shoppingCartBox">
 
 
@@ -126,7 +125,7 @@
           <el-col :span="6">
             <el-badge :value="totalCount" class="middle shoppingCart_icon_box">
               <el-button class="shoppingCart_icon middle" @click="toggelShoppingProduct">
-                <img src="../assets/shoppingCart.png" alt="shoppingCart" width="1rem" height="1rem">
+                <img src="../assets/shoppingCart.png" alt="shoppingCart" width="50px" height="50px">
               </el-button>
             </el-badge>
           </el-col>
@@ -136,7 +135,7 @@
         </el-row>
       </el-col>
       <el-col :span="6" :offset="6">
-        <el-button type="danger" class="account" @click="toggelShoppingProduct" :disabled="!totalPrice">选好了</el-button>
+        <el-button type="danger" class="account" @click="toggelShoppingProduct"  :disabled="!totalPrice">选好了</el-button>
       </el-col>
     </el-row>
     <!-- shoppingCart end -->
@@ -391,6 +390,10 @@ export default {
   color: #de3232;
   text-align: center;
 
+}
+.buy_number
+{
+  margin: 0 1rem;
 }
 .shoppingCart .account
 {

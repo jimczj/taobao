@@ -287,7 +287,6 @@ export default {
         })
     },
     toggelShoppingProduct (){
-      console.log(this.shoppingProductVisible);
       this.shoppingProductVisible = !this.shoppingProductVisible;
     },
     deleteShoppingProduct (){

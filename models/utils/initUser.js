@@ -1,6 +1,7 @@
 var Role = require('../Role');
 var User = require('../User');
 var mongoose = require('mongoose');
+var sha1 = require('sha1');
 var config = require('../../config');
 
 mongoose.connect(config.mongodb);
@@ -13,7 +14,7 @@ Role.findOne({
   } else {
     let user = User({
       username: 'root',
-      password: 'root',
+      password: sha1('root'),
       role_id: role._id,
     });
     user.save(function(err) {
@@ -35,7 +36,7 @@ Role.findOne({
   } else {
     let user = User({
       username: 'customer',
-      password: 'customer',
+      password: sha1('customer'),
       role_id: role._id,
     });
     user.save(function(err) {
@@ -56,7 +57,7 @@ Role.findOne({
   } else {
     let user = User({
       username: 'user',
-      password: 'user',
+      password: sha1('user'),
       money: 99999999,
       role_id: role._id,
     });

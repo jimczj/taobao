@@ -236,11 +236,13 @@ export default {
       });
     },
     loadProductList (){
+      this.fullscreenLoading = true;
       return productService.getList().then(res =>{
         res.body.json.forEach((item,index)=>{
           res.body.json[index].buyNumber = 0;
         });
         this.list = res.body.json;
+        this.fullscreenLoading = false;
       });
     },
     confirmDelete (item){
@@ -299,10 +301,7 @@ export default {
   },
 
   created() {
-    this.fullscreenLoading = true;
-    this.loadProductList().then(()=>{
-      this.fullscreenLoading = false;
-    });
+    this.loadProductList();
   }
 }
 </script>

@@ -28,6 +28,14 @@ export default {
 
   methods:{
     login () {
+      if(!this.user.username){
+        this.$message.error("姓名必填");
+        return;
+      } 
+      if(!this.user.password){
+        this.$message.error("密码必填");
+        return;
+      }
       authService.login(this.user).then(()=>{
         this.$router.push('/product');
       });

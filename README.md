@@ -9,9 +9,11 @@
 
 # 配置
 在 config.js里面，配置你的mongodb 
-#运行实例
+# 运行实例
 http://szudatalab.com:3000/
+
 账号：user 密码：user
+
 管理员账号：root 密码： root
 # 运行
     

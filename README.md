@@ -17,7 +17,7 @@ http://szudatalab.com:3000/
 管理员账号：root 密码： root
 # 运行
     
-    git clone https://github.com/jimczj/studentAdmin.git  // 仓库
+    git clone https://github.com/jimczj/taobao.git  // 仓库
     // 后端be
     cd be && npm install  // 安装
     npm start  // 启动
